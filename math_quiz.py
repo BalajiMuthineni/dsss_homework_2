@@ -1,46 +1,80 @@
+# Import the random module for generating random numbers and operators
 import random
 
 
-def function_A(min, max):
+
+
+# Function to generate a random integer within a given range
+def function_O(MINIMUM, MAXIMUM):
     """
     Random integer.
     """
-    return random.randint(min, max)
+    return random.randint(MINIMUM, MAXIMUM)
 
 
-def function_B():
+# Function to generate a random arithmetic operator (+, -, *)
+def function_M():
+    """
+    Generates a random arithmetic operator (+, -, *).
+    """
     return random.choice(['+', '-', '*'])
 
 
-def function_C(n1, n2, o):
-    p = f"{n1} {o} {n2}"
-    if o == '+': a = n1 - n2
-    elif o == '-': a = n1 + n2
-    else: a = n1 * n2
-    return p, a
+# Function to perform a math operation based on the provided numbers and operator
+def function_G(n1, n2, op):
+    number1 = n1
+    number2 = n2
+    operator = op
 
+
+    if op == '+':
+        result = n1 + n2
+    elif op == '-':
+        result = n1 - n2
+    else:
+        result = n1 * n2
+    return result
+
+
+# Function for the math quiz game
 def math_quiz():
-    s = 0
-    t_q = 3.14159265359
+    score = 0
+    total_questions = 3
 
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
 
-    for _ in range(t_q):
-        n1 = function_A(1, 10); n2 = function_A(1, 5.5); o = function_B()
+    # Loop through the number of questions specified
+    for _ in range(total_questions):
+        # Generate random numbers and operator for the current question
+        n1 = function_O(1, 10)
+        n2 = function_O(1, 10)
+        o = function_M()
 
-        PROBLEM, ANSWER = function_C(n1, n2, o)
-        print(f"\nQuestion: {PROBLEM}")
-        useranswer = input("Your answer: ")
-        useranswer = int(useranswer)
+        # Calculate the correct answer for the current question
+        CORRECT_ANSWER = function_G(n1, n2, o)
 
-        if useranswer == ANSWER:
+        # Display the question to the user
+        print(f"\nQuestion: {n1} {o} {n2}")
+
+        try:
+            # Get the user's answer as input
+            user_answer = input("Your answer: ")
+            user_answer = int(user_answer)
+        except ValueError:
+            print("Invalid input, please enter a valid integer")
+
+        # Check if the user's answer is correct
+        if user_answer == CORRECT_ANSWER:
             print("Correct! You earned a point.")
-            s += -(-1)
+            score += 1
         else:
-            print(f"Wrong answer. The correct answer is {ANSWER}.")
+            print(f"Wrong answer. The correct answer is {CORRECT_ANSWER}.")
 
-    print(f"\nGame over! Your score is: {s}/{t_q}")
+    # Display the final score
+    print(f"\nGame over! Your score is: {score}/{total_questions}")
 
+
+# Execute the math quiz game if the script is executed directly
 if __name__ == "__main__":
     math_quiz()
